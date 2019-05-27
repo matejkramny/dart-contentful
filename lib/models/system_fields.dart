@@ -3,8 +3,8 @@ import 'link.dart';
 part 'system_fields.g.dart';
 
 @JsonSerializable()
-class ContentfulSystemFields {
-  ContentfulSystemFields({
+class SystemFields {
+  SystemFields({
     this.id,
     this.type,
     this.space,
@@ -17,15 +17,15 @@ class ContentfulSystemFields {
 
   final String id;
   final String type;
-  final ContentfulLink space;
-  final ContentfulLink contentType;
+  final Link space;
+  final Link contentType;
   final int revision;
   final DateTime createdAt;
   final DateTime updatedAt;
   final String locale;
 
-  factory ContentfulSystemFields.fromJson(Map<String, dynamic> json) =>
-      _$ContentfulSystemFieldsFromJson(json);
+  factory SystemFields.fromJson(Map<String, dynamic> json) =>
+      _$SystemFieldsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ContentfulSystemFieldsToJson(this);
+  Map<String, dynamic> toJson() => _$SystemFieldsToJson(this);
 }

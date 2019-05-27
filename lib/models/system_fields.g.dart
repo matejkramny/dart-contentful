@@ -6,18 +6,16 @@ part of 'system_fields.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ContentfulSystemFields _$ContentfulSystemFieldsFromJson(
-    Map<String, dynamic> json) {
-  return ContentfulSystemFields(
+SystemFields _$SystemFieldsFromJson(Map<String, dynamic> json) {
+  return SystemFields(
       id: json['id'] as String,
       type: json['type'] as String,
       space: json['space'] == null
           ? null
-          : ContentfulLink.fromJson(json['space'] as Map<String, dynamic>),
+          : Link.fromJson(json['space'] as Map<String, dynamic>),
       contentType: json['contentType'] == null
           ? null
-          : ContentfulLink.fromJson(
-              json['contentType'] as Map<String, dynamic>),
+          : Link.fromJson(json['contentType'] as Map<String, dynamic>),
       revision: json['revision'] as int,
       createdAt: json['createdAt'] == null
           ? null
@@ -28,8 +26,7 @@ ContentfulSystemFields _$ContentfulSystemFieldsFromJson(
       locale: json['locale'] as String);
 }
 
-Map<String, dynamic> _$ContentfulSystemFieldsToJson(
-        ContentfulSystemFields instance) =>
+Map<String, dynamic> _$SystemFieldsToJson(SystemFields instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,

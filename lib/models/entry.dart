@@ -1,17 +1,17 @@
 import 'system_fields.dart';
 
-abstract class ContentfulEntry<T> {
-  ContentfulEntry({
+abstract class Entry<T> {
+  Entry({
     this.sys,
     this.fields,
   });
 
-  final ContentfulSystemFields sys;
+  final SystemFields sys;
   final T fields;
 }
 
-class ContentfulEntryCollection<T extends ContentfulEntry> {
-  ContentfulEntryCollection({
+class EntryCollection<T extends Entry> {
+  EntryCollection({
     this.total,
     this.skip,
     this.limit,
@@ -23,11 +23,11 @@ class ContentfulEntryCollection<T extends ContentfulEntry> {
   final int limit;
   final List<T> items;
 
-  factory ContentfulEntryCollection.fromJson(
+  factory EntryCollection.fromJson(
     Map<String, dynamic> json,
     T Function(Map<String, dynamic>) fromJson,
   ) =>
-      ContentfulEntryCollection(
+      EntryCollection(
         total: json['total'],
         skip: json['skip'],
         limit: json['limit'],

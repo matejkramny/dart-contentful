@@ -4,37 +4,36 @@ import 'system_fields.dart';
 part 'asset.g.dart';
 
 @JsonSerializable()
-class ContentfulAsset extends ContentfulEntry<ContentfulAssetFields> {
-  ContentfulAsset({
-    ContentfulSystemFields sys,
-    ContentfulAssetFields fields,
+class Asset extends Entry<AssetFields> {
+  Asset({
+    SystemFields sys,
+    AssetFields fields,
   }) : super(sys: sys, fields: fields);
 
-  factory ContentfulAsset.fromJson(Map<String, dynamic> json) =>
-      _$ContentfulAssetFromJson(json);
+  factory Asset.fromJson(Map<String, dynamic> json) => _$AssetFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ContentfulAssetToJson(this);
+  Map<String, dynamic> toJson() => _$AssetToJson(this);
 }
 
 @JsonSerializable()
-class ContentfulAssetFields {
-  ContentfulAssetFields({
+class AssetFields {
+  AssetFields({
     this.title,
     this.file,
   });
 
   final String title;
-  final ContentfulAssetFile file;
+  final AssetFile file;
 
-  factory ContentfulAssetFields.fromJson(Map<String, dynamic> json) =>
-      _$ContentfulAssetFieldsFromJson(json);
+  factory AssetFields.fromJson(Map<String, dynamic> json) =>
+      _$AssetFieldsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ContentfulAssetFieldsToJson(this);
+  Map<String, dynamic> toJson() => _$AssetFieldsToJson(this);
 }
 
 @JsonSerializable()
-class ContentfulAssetFile {
-  ContentfulAssetFile({
+class AssetFile {
+  AssetFile({
     this.fileName,
     this.contentType,
     this.url,
@@ -43,41 +42,40 @@ class ContentfulAssetFile {
   final String fileName;
   final String contentType;
   final String url;
-  final ContentfulAssetFileDetails details;
+  final AssetFileDetails details;
 
-  factory ContentfulAssetFile.fromJson(Map<String, dynamic> json) =>
-      _$ContentfulAssetFileFromJson(json);
+  factory AssetFile.fromJson(Map<String, dynamic> json) =>
+      _$AssetFileFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ContentfulAssetFileToJson(this);
+  Map<String, dynamic> toJson() => _$AssetFileToJson(this);
 }
 
 @JsonSerializable()
-class ContentfulAssetFileDetails {
-  ContentfulAssetFileDetails({
+class AssetFileDetails {
+  AssetFileDetails({
     this.size,
     this.image,
   });
   final int size;
-  final ContentfulAssetFileDetailsImage image;
+  final AssetFileDetailsImage image;
 
-  factory ContentfulAssetFileDetails.fromJson(Map<String, dynamic> json) =>
-      _$ContentfulAssetFileDetailsFromJson(json);
+  factory AssetFileDetails.fromJson(Map<String, dynamic> json) =>
+      _$AssetFileDetailsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ContentfulAssetFileDetailsToJson(this);
+  Map<String, dynamic> toJson() => _$AssetFileDetailsToJson(this);
 }
 
 @JsonSerializable()
-class ContentfulAssetFileDetailsImage {
-  ContentfulAssetFileDetailsImage({
+class AssetFileDetailsImage {
+  AssetFileDetailsImage({
     this.height,
     this.width,
   });
   final int height;
   final int width;
 
-  factory ContentfulAssetFileDetailsImage.fromJson(Map<String, dynamic> json) =>
-      _$ContentfulAssetFileDetailsImageFromJson(json);
+  factory AssetFileDetailsImage.fromJson(Map<String, dynamic> json) =>
+      _$AssetFileDetailsImageFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$ContentfulAssetFileDetailsImageToJson(this);
+  Map<String, dynamic> toJson() => _$AssetFileDetailsImageToJson(this);
 }

@@ -1,41 +1,41 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart';
-import '../models/entry.dart';
+import 'package:http/http.dart' as http;
+import './models/entry.dart';
 
-class ContentfulHttpClient extends BaseClient {
-  factory ContentfulHttpClient(String accessToken) {
-    final client = Client();
-    return ContentfulHttpClient._internal(client, accessToken);
+class HttpClient extends http.BaseClient {
+  factory HttpClient(String accessToken) {
+    final client = http.Client();
+    return HttpClient._internal(client, accessToken);
   }
-  ContentfulHttpClient._internal(this._inner, this.accessToken);
+  HttpClient._internal(this._inner, this.accessToken);
 
-  final Client _inner;
+  final http.Client _inner;
   final String accessToken;
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) {
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
     request.headers['Authorization'] = 'Bearer $accessToken';
     return _inner.send(request);
   }
 }
 
-class ContentfulApi {
-  factory ContentfulApi(
+class Client {
+  factory Client(
     String spaceId,
     String accessToken, {
     String host = 'cdn.contentful.com',
   }) {
-    final client = ContentfulHttpClient(accessToken);
-    return ContentfulApi._(client, spaceId, host: host);
+    final client = HttpClient(accessToken);
+    return Client._(client, spaceId, host: host);
   }
-  ContentfulApi._(
+  Client._(
     this._client,
     this.spaceId, {
     this.host,
   });
 
-  final ContentfulHttpClient _client;
+  final HttpClient _client;
   final String spaceId;
   final String host;
 
@@ -50,7 +50,7 @@ class ContentfulApi {
     this._client.close();
   }
 
-  Future<T> getEntry<T extends ContentfulEntry>(
+  Future<T> getEntry<T extends Entry>(
     String id,
     T Function(Map<String, dynamic>) fromJson, {
     Map<String, dynamic> params,
@@ -62,7 +62,7 @@ class ContentfulApi {
     return fromJson(json.decode(response.body));
   }
 
-  Future<ContentfulEntryCollection<T>> getEntries<T extends ContentfulEntry>(
+  Future<EntryCollection<T>> getEntries<T extends Entry>(
     Map<String, dynamic> query,
     T Function(Map<String, dynamic>) fromJson,
   ) async {
@@ -73,23 +73,23 @@ class ContentfulApi {
 
     dynamic jsonr = json.decode(response.body);
     if (jsonr['includes'] != null) {
-      final includes = ContentfulIncludes.fromJson(jsonr['includes']);
+      final includes = Includes.fromJson(jsonr['includes']);
       jsonr['items'] = includes.resolveLinks(jsonr['items']);
     }
 
-    return ContentfulEntryCollection.fromJson(jsonr, fromJson);
+    return EntryCollection.fromJson(jsonr, fromJson);
   }
 }
 
-class ContentfulIncludes {
-  factory ContentfulIncludes.fromJson(Map<String, dynamic> json) {
-    final map = ContentfulIncludesMap.fromJson(json);
+class Includes {
+  factory Includes.fromJson(Map<String, dynamic> json) {
+    final map = IncludesMap.fromJson(json);
 
-    return ContentfulIncludes(map);
+    return Includes(map);
   }
 
-  ContentfulIncludes(this.map);
-  final ContentfulIncludesMap map;
+  Includes(this.map);
+  final IncludesMap map;
 
   bool _isLink(Map<String, dynamic> entry) {
     return entry['sys'] != null && entry['sys']['type'] == 'Link';
@@ -124,8 +124,8 @@ class ContentfulIncludes {
   }
 }
 
-class ContentfulIncludesMap {
-  factory ContentfulIncludesMap.fromJson(Map<String, dynamic> json) {
+class IncludesMap {
+  factory IncludesMap.fromJson(Map<String, dynamic> json) {
     final Map<String, Map<String, Map<String, dynamic>>> map = {};
 
     json.forEach((type, json) {
@@ -137,10 +137,10 @@ class ContentfulIncludesMap {
       });
     });
 
-    return ContentfulIncludesMap(map);
+    return IncludesMap(map);
   }
 
-  ContentfulIncludesMap(this._map);
+  IncludesMap(this._map);
 
   final Map<String, Map<String, Map<String, dynamic>>> _map;
 

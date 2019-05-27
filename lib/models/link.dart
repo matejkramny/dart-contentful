@@ -1,11 +1,11 @@
-class ContentfulLink {
-  ContentfulLink({this.id, this.type});
+class Link {
+  Link({this.id, this.type});
 
   final String id;
   final String type;
 
-  factory ContentfulLink.fromJson(Map<String, dynamic> json) {
-    return ContentfulLink(
+  factory Link.fromJson(Map<String, dynamic> json) {
+    return Link(
       id: json['sys']['id'],
       type: json['sys']['linkType'],
     );
