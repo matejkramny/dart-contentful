@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
 import '../models/entry.dart';
@@ -26,9 +27,9 @@ class ContentfulApi {
     String host = 'cdn.contentful.com',
   }) {
     final client = ContentfulHttpClient(accessToken);
-    return ContentfulApi._internal(client, spaceId, host: host);
+    return ContentfulApi._(client, spaceId, host: host);
   }
-  ContentfulApi._internal(
+  ContentfulApi._(
     this._client,
     this.spaceId, {
     this.host,
@@ -44,6 +45,10 @@ class ContentfulApi {
         path: '/spaces/$spaceId/environments/master$path',
         queryParameters: params,
       );
+
+  void close() {
+    this._client.close();
+  }
 
   Future<T> getEntry<T extends ContentfulEntry>(
     String id,
