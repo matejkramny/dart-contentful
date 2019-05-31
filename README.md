@@ -45,7 +45,7 @@ class EventFields extends Equatable {
     this.title,
     this.slug,
     this.relations,
-  }) : super([title, slug, website, email, backgroundImage, sections]);
+  }) : super([title, slug, relations]);
 
   final String title;
   final String slug;
