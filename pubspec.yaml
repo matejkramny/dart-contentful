@@ -2,6 +2,7 @@ name: contentful
 version: 1.0.0
 author: ARISE Church <it@arisechurch.com>
 homepage: https://arisechurch.com
+description: Contentful Delivery API client for Dart.
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
