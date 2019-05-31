@@ -1,6 +1,6 @@
 name: contentful
 version: 1.0.0
-author: ARISE Church
+author: ARISE Church <it@arisechurch.com>
 homepage: https://arisechurch.com
 
 environment:
