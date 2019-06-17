@@ -59,7 +59,7 @@ class Client {
     if (response.statusCode != 200) {
       throw Exception('getEntry failed');
     }
-    return fromJson(json.decode(response.body));
+    return fromJson(json.decode(utf8.decode(response.bodyBytes)));
   }
 
   Future<EntryCollection<T>> getEntries<T extends Entry>(
@@ -71,7 +71,7 @@ class Client {
       throw Exception('getEntries failed');
     }
 
-    dynamic jsonr = json.decode(response.body);
+    dynamic jsonr = json.decode(utf8.decode(response.bodyBytes));
     if (jsonr['includes'] != null) {
       final includes = Includes.fromJson(jsonr['includes']);
       jsonr['items'] = includes.resolveLinks(jsonr['items']);
