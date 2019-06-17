@@ -1,5 +1,5 @@
 name: contentful
-version: 1.0.0+2
+version: "1.0.1"
 author: ARISE Church <it@arisechurch.com>
 description: Contentful Delivery API client for Dart.
 homepage: https://gitlab.com/arisechurch/dart-contentful
