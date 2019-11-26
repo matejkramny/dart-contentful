@@ -1,8 +1,13 @@
-class Link {
+import 'package:equatable/equatable.dart';
+
+class Link extends Equatable {
   Link({this.id, this.type});
 
   final String id;
   final String type;
+
+  @override
+  List<Object> get props => [id, type];
 
   factory Link.fromJson(Map<String, dynamic> json) {
     return Link(

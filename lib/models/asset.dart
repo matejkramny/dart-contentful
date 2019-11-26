@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'entry.dart';
 import 'system_fields.dart';
@@ -11,12 +12,11 @@ class Asset extends Entry<AssetFields> {
   }) : super(sys: sys, fields: fields);
 
   factory Asset.fromJson(Map<String, dynamic> json) => _$AssetFromJson(json);
-
   Map<String, dynamic> toJson() => _$AssetToJson(this);
 }
 
 @JsonSerializable()
-class AssetFields {
+class AssetFields extends Equatable {
   AssetFields({
     this.title,
     this.file,
@@ -25,6 +25,9 @@ class AssetFields {
   final String title;
   final AssetFile file;
 
+  @override
+  List<Object> get props => [title, file];
+
   factory AssetFields.fromJson(Map<String, dynamic> json) =>
       _$AssetFieldsFromJson(json);
 
@@ -32,17 +35,21 @@ class AssetFields {
 }
 
 @JsonSerializable()
-class AssetFile {
+class AssetFile extends Equatable {
   AssetFile({
     this.fileName,
     this.contentType,
     this.url,
     this.details,
   });
+
   final String fileName;
   final String contentType;
   final String url;
   final AssetFileDetails details;
+
+  @override
+  List<Object> get props => [fileName, contentType, url, details];
 
   factory AssetFile.fromJson(Map<String, dynamic> json) =>
       _$AssetFileFromJson(json);
@@ -51,13 +58,17 @@ class AssetFile {
 }
 
 @JsonSerializable()
-class AssetFileDetails {
+class AssetFileDetails extends Equatable {
   AssetFileDetails({
     this.size,
     this.image,
   });
+
   final int size;
   final AssetFileDetailsImage image;
+
+  @override
+  List<Object> get props => [size, image];
 
   factory AssetFileDetails.fromJson(Map<String, dynamic> json) =>
       _$AssetFileDetailsFromJson(json);
@@ -66,13 +77,17 @@ class AssetFileDetails {
 }
 
 @JsonSerializable()
-class AssetFileDetailsImage {
+class AssetFileDetailsImage extends Equatable {
   AssetFileDetailsImage({
     this.height,
     this.width,
   });
+
   final int height;
   final int width;
+
+  @override
+  List<Object> get props => [height, width];
 
   factory AssetFileDetailsImage.fromJson(Map<String, dynamic> json) =>
       _$AssetFileDetailsImageFromJson(json);

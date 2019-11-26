@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'system_fields.dart';
 
-abstract class Entry<T> {
+abstract class Entry<T> extends Equatable {
   Entry({
     this.sys,
     this.fields,
@@ -8,6 +9,9 @@ abstract class Entry<T> {
 
   final SystemFields sys;
   final T fields;
+
+  @override
+  List<Object> get props => [sys, fields];
 }
 
 class EntryCollection<T extends Entry> {
