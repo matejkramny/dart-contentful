@@ -95,6 +95,18 @@ class Includes {
     return entry['sys'] != null && entry['sys']['type'] == 'Link';
   }
 
+  bool _isListOfLinks(List<dynamic> list) {
+    if (list.length < 1) {
+      return false;
+    }
+
+    if (!(list.first is Map)) {
+      return false;
+    }
+
+    return _isLink(list.first);
+  }
+
   Map<String, dynamic> _walkMap(Map<String, dynamic> entry) {
     if (_isLink(entry)) {
       final resolved = map.resolveLink(entry);
@@ -102,8 +114,9 @@ class Includes {
     } else if (entry['fields'] == null) return entry;
 
     final fields = entry['fields'] as Map<String, dynamic>;
+
     entry['fields'] = fields.map((key, fieldJson) {
-      if (fieldJson is List) {
+      if (fieldJson is List && _isListOfLinks(fieldJson)) {
         return MapEntry<String, dynamic>(
           key,
           resolveLinks(fieldJson),
