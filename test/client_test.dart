@@ -21,38 +21,37 @@ void main() {
     });
 
     final linkToEntry = {
-      "sys": {
-        "type": "Link",
-        "linkType": "Entry",
-        "id": "A"
-      },
+      "sys": {"type": "Link", "linkType": "Entry", "id": "A"},
     };
 
     test('links should be resolved', () {
+      final linkingList = [
+        {
+          "sys": {
+            "type": "Entry",
+            "id": "B",
+          },
+          "fields": {
+            "links": [
+              linkToEntry,
+            ],
+          },
+        }
+      ];
 
-      final linkingList = [{
-        "sys": {
-          "type": "Entry",
-          "id": "B",
-        },
-        "fields": {
-          "links": [
-            linkToEntry,
-          ],
-        },
-      }];
-
-      final expectedList = [{
-        "sys": {
-          "type": "Entry",
-          "id": "B",
-        },
-        "fields": {
-          "links": [
-            linkedEntry,
-          ],
-        },
-      }];
+      final expectedList = [
+        {
+          "sys": {
+            "type": "Entry",
+            "id": "B",
+          },
+          "fields": {
+            "links": [
+              linkedEntry,
+            ],
+          },
+        }
+      ];
 
       final resolvedList = includes.resolveLinks(linkingList);
 
@@ -60,31 +59,33 @@ void main() {
     });
 
     test('list of strings should be preserved', () {
+      final linkingList = [
+        {
+          "sys": {
+            "type": "Entry",
+            "id": "B",
+          },
+          "fields": {
+            "stringlist": ["str1", "str2"],
+          },
+        }
+      ];
 
-      final linkingList = [{
-        "sys": {
-          "type": "Entry",
-          "id": "B",
-        },
-        "fields": {
-          "stringlist": ["str1", "str2"],
-        },
-      }];
-
-      final expectedList = [{
-        "sys": {
-          "type": "Entry",
-          "id": "B",
-        },
-        "fields": {
-          "stringlist": ["str1", "str2"],
-        },
-      }];
+      final expectedList = [
+        {
+          "sys": {
+            "type": "Entry",
+            "id": "B",
+          },
+          "fields": {
+            "stringlist": ["str1", "str2"],
+          },
+        }
+      ];
 
       final resolvedList = includes.resolveLinks(linkingList);
 
       expect(deepEq(resolvedList, expectedList), true);
     });
-
   });
 }
