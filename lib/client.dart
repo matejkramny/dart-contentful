@@ -96,7 +96,7 @@ class Includes {
   }
 
   bool _isListOfLinks(List<dynamic> list) {
-    if (list.length < 1) {
+    if (list.isEmpty) {
       return false;
     }
 
