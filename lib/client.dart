@@ -155,10 +155,6 @@ class Includes {
   List<Map<String, dynamic>> resolveLinks(List<dynamic> items) {
     return items.map((item) => _walkMap(item)).toList();
   }
-
-  List<Map<String, dynamic>> resolveRichDocumentLinks(List<dynamic> items) {
-    return items.map((item) => _walkMap(item)).toList();
-  }
 }
 
 class IncludesMap {
