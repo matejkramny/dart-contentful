@@ -74,7 +74,6 @@ class Client {
     dynamic jsonr = json.decode(utf8.decode(response.bodyBytes));
     if (jsonr['includes'] != null) {
       final includes = Includes.fromJson(jsonr['includes']);
-      print(includes.map._map["Asset"]["2zVRpn6LJKTYal1JAfYIw5"]);
       jsonr['items'] = includes.resolveLinks(jsonr['items']);
     }
 
