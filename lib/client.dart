@@ -107,11 +107,27 @@ class Includes {
     return _isLink(list.first);
   }
 
+  _walkContent(dynamic field) {
+    if (field['data'] != null && field['data']['target'] != null) {
+      final resolved = map.resolveLink(field['data']['target']);
+      field['data']['target'] = resolved;
+    }
+
+    if (field['content'] == null) return;
+
+    List<dynamic> content = field['content'];
+    content.forEach((el) {
+      _walkContent(el);
+    });
+  }
+
   Map<String, dynamic> _walkMap(Map<String, dynamic> entry) {
     if (_isLink(entry)) {
       final resolved = map.resolveLink(entry);
       return _isLink(resolved) ? entry : _walkMap(resolved);
-    } else if (entry['fields'] == null) return entry;
+    } else if (entry['fields'] == null) {
+      return entry;
+    }
 
     final fields = entry['fields'] as Map<String, dynamic>;
 
@@ -126,9 +142,13 @@ class Includes {
           key,
           _walkMap(map.resolveLink(fieldJson)),
         );
+      } else if (fieldJson is Map && fieldJson['content'] != null) {
+        _walkContent(fieldJson);
       }
+
       return MapEntry<String, dynamic>(key, fieldJson);
     });
+
     return entry;
   }
 
